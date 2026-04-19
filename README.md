@@ -1,3 +1,3 @@
-# genpark-foil
+# genpark-agent-monitor
 
 Auto-distilled OpenClaw skill.
