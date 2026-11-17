@@ -8,18 +8,9 @@ import json
 from typing import Dict, Any, List
 from client import OpenClawGenParkAgentMonitor
 
-try:
-    from mcp.server.fastmcp import FastMCP
-    mcp = FastMCP("openclaw-genpark-agent-monitor")
-except ImportError:
-    class MockFastMCP:
-        def __init__(self, name):
-            self.name = name
-        def tool(self):
-            def decorator(f):
-                return f
-            return decorator
-    mcp = MockFastMCP("openclaw-genpark-agent-monitor")
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP('openclaw-genpark-agent-monitor')
 
 mon = OpenClawGenParkAgentMonitor()
 
@@ -59,8 +50,7 @@ def evaluate_cluster_slos_and_apdex(
     return json.dumps(res, indent=2)
 
 def main():
-    print("Testing Agent Monitor:")
-    print(evaluate_cluster_slos_and_apdex([45, 60, 110, 250, 600]))
+    mcp.run(transport="stdio")
 
 if __name__ == "__main__":
     main()
